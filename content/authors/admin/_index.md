@@ -71,4 +71,4 @@ user_groups:
 - Visitors
 ---
 
-Nick Bond is Professor of Freshwater Ecology and Director of the Centre for Freshwater Ecosystems at La Trobe University's Albury/Wodonga campus.
+Nick Bond is Professor of Freshwater Ecology and Director of the Centre for Freshwater Ecosystems, based at La Trobe University's Albury/Wodonga campus.
