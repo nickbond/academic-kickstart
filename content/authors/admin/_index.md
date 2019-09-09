@@ -1,6 +1,6 @@
 ---
 # Display name
-name: Nick Bond
+name: Nelson Bighetti
 
 # Username (this should match the folder name)
 authors:
@@ -10,33 +10,32 @@ authors:
 superuser: true
 
 # Role/position
-role: Professor of Freshwater Ecology
+role: Professor of Artificial Intelligence
 
 # Organizations/Affiliations
 organizations:
-- name: La Trobe University
+- name: Stanford University
   url: ""
 
 # Short bio (displayed in user profile at end of posts)
-bio: My research focuses on supporting the sustainable managment of riverine ecosystems.
+bio: My research interests include distributed robotics, mobile computing and programmable matter.
 
 interests:
-- Freshwater Ecosystems
-- Water Resources Management
-- Quantitative modelling and statistics
-- Data Science
+- Artificial Intelligence
+- Computational Linguistics
+- Information Retrieval
 
 education:
   courses:
-  - course: PhD in Geography
-    institution: University of Melbourne
-    year: 2000
-  - course: Graduate Certificate in Higher Education
-    institution: Monash University
+  - course: PhD in Artificial Intelligence
+    institution: Stanford University
+    year: 2012
+  - course: MEng in Artificial Intelligence
+    institution: Massachusetts Institute of Technology
+    year: 2009
+  - course: BSc in Artificial Intelligence
+    institution: Massachusetts Institute of Technology
     year: 2008
-  - course: BSc(hons)
-    institution: University of Melbourne
-    year: 1995
 
 # Social/Academic Networking
 # For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
@@ -46,15 +45,15 @@ social:
 - icon: envelope
   icon_pack: fas
   link: '#contact'  # For a direct email link, use "mailto:test@example.org".
-#- icon: twitter
-#  icon_pack: fab
-#  link: https://twitter.com/GeorgeCushen
+- icon: twitter
+  icon_pack: fab
+  link: https://twitter.com/GeorgeCushen
 - icon: google-scholar
   icon_pack: ai
-  link: https://scholar.google.com.au/citations?user=pv6dywMAAAAJ&hl=en
+  link: https://scholar.google.co.uk/citations?user=sIwtMXoAAAAJ
 - icon: github
   icon_pack: fab
-  link: https://github.com/nickbond
+  link: https://github.com/gcushen
 # Link to a PDF of your resume/CV from the About widget.
 # To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
 # - icon: cv
@@ -71,4 +70,6 @@ user_groups:
 - Visitors
 ---
 
-Nick Bond is Professor of Freshwater Ecology and Director of the Centre for Freshwater Ecosystems, based at La Trobe University's Albury/Wodonga campus.
+Nelson Bighetti is a professor of artificial intelligence at the Stanford AI Lab. His research interests include distributed robotics, mobile computing and programmable matter. He leads the Robotic Neurobiology group, which develops self-reconfiguring robots, systems of self-organizing robots, and mobile sensor networks.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate. 
