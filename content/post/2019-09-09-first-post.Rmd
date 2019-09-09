@@ -17,7 +17,7 @@ library(sf)
 library(gganimate)
 library(lubridate)
 if(!requireNamespace("devtools")) install.packages("devtools")
-devtools::install_github("dkahle/ggmap", force=TRUE)
+#devtools::install_github("dkahle/ggmap", force=TRUE)
 library(ggmap)
 ```
 
@@ -37,13 +37,13 @@ dams <- left_join(all_years, dams, by="DAM_DATE") %>% arrange(DAM_DATE) %>%
   mutate(Year = year(DAM_DATE)) %>% fill(DAM_DATE:n_dams)
 
 
-library(ggmap)
-oz_map <- get_map(location = 'Australia', zoom = 4, source = 'google', maptype="satellite")
+#oz_map <- get_map(location = 'Australia', zoom = 4, source = 'google', maptype="satellite")
 n_years <- nrow(distinct(dams, Year))
 
 
 dams_in_time <-
-  ggmap(oz_map) +
+  #ggmap() +
+  ggplot() +
   geom_point(data = dams, aes(x=X, y=Y, group = seq_along(Year), size = CAPACITY), colour = "red", alpha=0.5) +
   transition_reveal(Year, keep_last = TRUE) +
   labs(title = "Large Dams in Australia", 

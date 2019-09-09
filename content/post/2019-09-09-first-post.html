@@ -1,0 +1,85 @@
+---
+title: A timeline of dam construction in Australia
+author: Nick Bond
+date: '2019-09-09'
+slug: first-post
+categories: []
+tags:
+  - R
+  - dams
+---
+
+
+
+<p>There’s been recent suggestion that more dams should be built to safegaurd against future droughts. Setting aside the question of where a new dam would be built (most appropriate locations have been utilised already), the thing that often seems to be forgotten is that most of our dams are currently storing more air than water. So how many dams have we built in Australia? Here’s a timline in R.</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ───────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
+<pre><code>## ✔ ggplot2 3.2.1           ✔ purrr   0.3.2      
+## ✔ tibble  2.1.3           ✔ dplyr   0.8.3      
+## ✔ tidyr   0.8.99.9000     ✔ stringr 1.4.0      
+## ✔ readr   1.3.1           ✔ forcats 0.4.0</code></pre>
+<pre><code>## ── Conflicts ──────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(sf)</code></pre>
+<pre><code>## Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</code></pre>
+<pre class="r"><code>library(gganimate)
+library(lubridate)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;lubridate&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     date</code></pre>
+<pre class="r"><code>if(!requireNamespace(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)</code></pre>
+<pre><code>## Loading required namespace: devtools</code></pre>
+<pre class="r"><code>#devtools::install_github(&quot;dkahle/ggmap&quot;, force=TRUE)
+library(ggmap)</code></pre>
+<pre><code>## Google&#39;s Terms of Service: https://cloud.google.com/maps-platform/terms/.</code></pre>
+<pre><code>## Please cite ggmap if you use it! See citation(&quot;ggmap&quot;) for details.</code></pre>
+<pre class="r"><code>dams &lt;-  readxl::read_excel(&quot;Dams-Australia-2010-v1.xls&quot;, sheet = &quot;Australia&quot;) %&gt;%
+  janitor::clean_names() %&gt;% slice(-c(1:2)) %&gt;% unite(&quot;use&quot;, contains(&quot;purpose&quot;), sep = &quot;, &quot;)</code></pre>
+<pre><code>## New names:
+## * `` -&gt; ...1
+## * `` -&gt; ...4
+## * `` -&gt; ...8
+## * DAM -&gt; DAM...11
+## * DAM -&gt; DAM...12
+## * … and 5 more problems</code></pre>
+<pre class="r"><code>dams &lt;- read_sf(&quot;kx-australian-dams-and-water-storages-SHP/australian-dams-and-water-storages.shp&quot;)
+dams &lt;- dams %&gt;% mutate(DAM_DATE = ymd(DAM_DATE, truncated = 2)) %&gt;% filter(!is.na(DAM_DATE))</code></pre>
+<pre><code>## Warning: 1 failed to parse.</code></pre>
+<pre class="r"><code>dams &lt;- cbind(dams, sf::st_coordinates(dams))
+dams &lt;- dams %&gt;% arrange(DAM_DATE) %&gt;%
+  mutate(n_dams=row_number())
+
+all_years &lt;- data.frame(DAM_DATE = seq(from=min(dams$DAM_DATE, na.rm=TRUE), to=as.Date(cut(Sys.Date(), &quot;year&quot;)), by=&quot;year&quot;))
+dams &lt;- left_join(all_years, dams, by=&quot;DAM_DATE&quot;) %&gt;% arrange(DAM_DATE) %&gt;%
+  mutate(Year = year(DAM_DATE)) %&gt;% fill(DAM_DATE:n_dams)
+
+
+#oz_map &lt;- get_map(location = &#39;Australia&#39;, zoom = 4, source = &#39;google&#39;, maptype=&quot;satellite&quot;)
+n_years &lt;- nrow(distinct(dams, Year))
+
+
+dams_in_time &lt;-
+  #ggmap() +
+  ggplot() +
+  geom_point(data = dams, aes(x=X, y=Y, group = seq_along(Year), size = CAPACITY), colour = &quot;red&quot;, alpha=0.5) +
+  transition_reveal(Year, keep_last = TRUE) +
+  labs(title = &quot;Large Dams in Australia&quot;, 
+       subtitle = &#39;Year: {frame_along},  Number of Dams: {dams$n_dams[dams$Year == frame_along][1]}&#39;,
+       size = expression(&quot;Capacity (10&quot;^3*&quot;m&quot;^3*&quot;)&quot;))
+
+dams_in_time &lt;- animate(plot = dams_in_time, 
+                        nframes = n_years, 
+                        fps=2, 
+                        device=&quot;png&quot;, 
+                        height = 500, 
+                        width =500, 
+                        )
+
+
+
+anim_save(&quot;oz_dams_in_time.gif&quot;)</code></pre>
+<pre class="r"><code>dams_in_time</code></pre>
+<p><img src="/post/2019-09-09-first-post_files/figure-html/unnamed-chunk-3-1.gif" /><!-- --></p>
