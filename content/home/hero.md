@@ -25,7 +25,7 @@ hero_media = ""
 
   # Background image.
    image = "Moonie.jpg"  # Name of image in `static/img/`.
-   image_darken = 0.6  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
+   image_darken = 0.7  # Darken the image? Range 0-1 where 0 is transparent and 1 is opaque.
 
   # Text color (true=light or false=dark).
   text_color_light = true
@@ -48,4 +48,4 @@ hero_media = ""
 #  label = '<a class="js-github-release" href="https://sourcethemes.com/academic/updates" #data-repo="gcushen/hugo-academic">Latest release<!-- V --></a>'
 +++
 
-<div style="height: 300px"></div>
+<div style="height: 500px"></div>
